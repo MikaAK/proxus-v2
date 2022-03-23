@@ -13,9 +13,10 @@ defmodule ProxusUi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: ProxusUi.PubSub},
       # Start the Endpoint (http/https)
-      ProxusUiWeb.Endpoint
-      # Start a worker by calling: ProxusUi.Worker.start_link(arg)
-      # {ProxusUi.Worker, arg}
+      ProxusUiWeb.Endpoint,
+      {Task.Supervisor, name: Task.LedChipSupervisor},
+      {Finch, name: LedFinch},
+      {ProxusUi.LedChip, "bedroom-led-lights"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -1,0 +1,61 @@
+<section>
+  <div>
+    <h2>Bedroom LED</h2>
+    <span style="display: block;">MDNS: <%= @bedroom_led.mdns %> </span>
+    <span style="display: block;">Version: <%= @bedroom_led.version %> </span>
+    <span style="display: block;">Status: <%= @bedroom_led.connection_status %> </span>
+    <span style="display: block;">Wi-Fi Strength: <%= @bedroom_led.wifi_strength %> </span>
+    <span style="display: block;">Time: <%= @bedroom_led.time %> </span>
+  </div>
+
+  <div>
+    <.form let={f} for={:colour} phx-change="change-colour">
+      <label for="colour">Colour Hex</label>
+      <%= color_input f, :colour,
+        value: @bedroom_led.current_colour,
+        disabled: @bedroom_led.current_colour === "Unknown"
+      %>
+    </.form>
+  </div>
+
+  <div>
+    <.form let={f} for={:brightness} phx-change="change-brightness">
+      <label for="brightness">Brightness</label>
+      <%= number_input f, :brightness,
+        step: 5,
+        value: @bedroom_led.current_brightness,
+        disabled: @bedroom_led.current_brightness === "Unknown"
+      %>
+    </.form>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <div>
+      <label for="sunrise_duration">Sunrise Duration</label>
+      <input
+        type="number"
+        step="10000"
+        id="sunrise_duration"
+        name="sunrise_duration"
+        phx-debounce="blur"
+        phx-change="update_current_sunrise_duration"
+        value={@bedroom_led.current_sunrise_duration}
+        disabled={@bedroom_led.current_sunrise_duration === "Unknown"}
+      >
+    </div>
+    <div>
+      <label for="sunriseTime">Sunrise Time</label>
+      <input
+        type="text"
+        id="sunriseTime"
+        name="sunriseTime"
+        phx-debounce="blur"
+        phx-change="update_sunrise_time"
+        value={@bedroom_led.sunrise_time}
+        disabled={@bedroom_led.sunrise_time === "Unknown"}
+      >
+    </div>
+    <button type="button">Start Sunrise</button>
+    <button type="button">Cancel Sunrise</button>
+  </div>
+</section>

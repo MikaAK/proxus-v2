@@ -17,7 +17,7 @@ defmodule ProxusUiWeb.Router do
   scope "/", ProxusUiWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", DashboardLive, :index
   end
 
   # Other scopes may use custom stacks.
